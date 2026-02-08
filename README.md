@@ -1,2 +1,7 @@
 # CalculatorApp
-A Calculator App with an interface
+
+A calculator app that supports basic operations such as 
+    -addition
+    -subtraction
+    -multiplication
+    -division
