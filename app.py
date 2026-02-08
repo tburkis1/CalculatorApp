@@ -7,7 +7,8 @@ class CalculatorApp:
         ["7", "8", "9", "/"],
         ["4", "5", "6", "*"],
         ["1", "2", "3", "-"],
-        ["0", "C", "=", "+"],
+        ["0", "C", "+/-", "+"],
+        [None, None, None, "="],
     ]
     
     #Initialize UI
@@ -41,8 +42,10 @@ class CalculatorApp:
         #Place each button in appropriate place based on BUTTON_LAYOUT
         for row_index, row in enumerate(self.BUTTON_LAYOUT, start=1):
             for col_index, label in enumerate(row):
-                #Pass each button its row,col position and value
-                self._create_button(label, row_index, col_index)
+                #Skip blanks
+                if label:
+                    #Pass each button its row,col position and value
+                    self._create_button(label, row_index, col_index)
 
     def _create_button(self, label, row, col):
         #Create new button with passed in value
@@ -65,8 +68,11 @@ class CalculatorApp:
     #Method which handles all button press
     def on_button_press(self, value):
         try:
+            #Match button to behavior
             if value.isdigit():
                 self.calculator.input_digit(value)
+            elif value == "+/-":
+                self.calculator.flip_sign()
             elif value in "+-*/":
                 self.calculator.set_operator(value)
             elif value == "=":

@@ -32,6 +32,15 @@ class Calculator:
         self.stored_value = int(self.current_value)
         self.operator = operator
         self.reset_input = True
+        
+    def flip_sign(self):
+        #If starting a new number, flipping the sign should apply to that
+        if self.reset_input:
+            self.current_value = "0"
+            self.reset_input = False
+
+        value = int(self.current_value)
+        self.current_value = str(-value)
 
     def calculate(self):
         #No existing value or expression do nothing
@@ -47,6 +56,10 @@ class Calculator:
             result = self.stored_value - current
         elif self.operator == "*":
             result = self.stored_value * current
+        elif self.operator == "/":
+            if current == 0:
+                raise ValueError("Cannot divide by zero") #Cannot divide by zero raise error
+            result = self.stored_value // current
         elif self.operator == "/":
             if current == 0:
                 raise ValueError("Cannot divide by zero") #Cannot divide by zero raise error
