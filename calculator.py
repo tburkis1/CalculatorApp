@@ -25,7 +25,8 @@ class Calculator:
     
     def set_operator(self, operator: str):
         #Evaluates existing expression if there is one. Allows chaining
-        if self.operator is not None:
+        #Must enter a new number each time
+        if self.operator is not None and not self.reset_input:
             self.calculate()
 
         #Store existing value, set operator and typing new number
@@ -34,13 +35,10 @@ class Calculator:
         self.reset_input = True
         
     def flip_sign(self):
-        #If starting a new number, flipping the sign should apply to that
-        if self.reset_input:
-            self.current_value = "0"
-            self.reset_input = False
-
-        value = int(self.current_value)
-        self.current_value = str(-value)
+        #Do not allow sign flip after choosing an operator and before typing a number
+        if not self.operator or (self.operator and not self.reset_input):
+            value = int(self.current_value)
+            self.current_value = str(-value)
 
     def calculate(self):
         #No existing value or expression do nothing
